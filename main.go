@@ -16,11 +16,10 @@ var upgrader = websocket.Upgrader{
 func main() {
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		conn, _ := upgrader.Upgrade(w, r, nil)
-		t, m, err := conn.ReadMessage()
+		_, m, err := conn.ReadMessage()
 		if err != nil {
 			return
 		}
-		fmt.Println(t)
 		fmt.Println(string(m))
 	})
 	fs := http.FileServer(http.Dir("client"))
